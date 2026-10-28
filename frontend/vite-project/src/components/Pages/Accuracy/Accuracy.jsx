@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Footer from "../Footer/Footer";
 import {
@@ -106,6 +105,7 @@ const Accuracy = () => {
       <main className="accuracy-page">
         <div className="container">
           <h1 className="page-title">Forecast Accuracy</h1>
+
           <p className="page-sub">
             Evaluate hourly wind forecasts against actual generation for
             January 2026 purchasing decisions.
@@ -168,92 +168,113 @@ const Accuracy = () => {
                 </p>
               )}
 
+              {/* Forecast vs Actual Chart */}
               <section className="chart-box">
                 <h2>Forecast vs Actual Generation</h2>
+
                 <p className="page-sub">
                   Compare predicted and actual hourly wind generation.
                 </p>
 
-                <div style={{ width: "100%", height: 350 }}>
-                  <ResponsiveContainer>
-                    <LineChart data={rows}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="time"
-                        minTickGap={40}
-                        tick={{ fontSize: 11 }}
-                      />
-                      <YAxis
-                        width={60}
-                        tickFormatter={(value) => `${Math.round(value / 1000)}k`}
-                      />
-                      <Tooltip
-                        labelFormatter={(label) => `Time: ${label}`}
-                        formatter={(value, name) => [
-                          `${formatNumber(value)} MW`,
-                          name,
-                        ]}
-                      />
-                      <Legend />
-                      <Line
-                        type="monotone"
-                        dataKey="forecast"
-                        name="Forecast"
-                        stroke="#2563eb"
-                        dot={false}
-                        strokeWidth={2}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="actual"
-                        name="Actual"
-                        stroke="#16a34a"
-                        dot={false}
-                        strokeWidth={2}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
+                <div className="chart-scroll">
+                  <div className="chart-inner">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={rows}>
+                        <CartesianGrid strokeDasharray="3 3" />
+
+                        <XAxis
+                          dataKey="time"
+                          minTickGap={40}
+                          tick={{ fontSize: 11 }}
+                        />
+
+                        <YAxis
+                          width={60}
+                          tickFormatter={(value) =>
+                            `${Math.round(value / 1000)}k`
+                          }
+                        />
+
+                        <Tooltip
+                          labelFormatter={(label) => `Time: ${label}`}
+                          formatter={(value, name) => [
+                            `${formatNumber(value)} MW`,
+                            name,
+                          ]}
+                        />
+
+                        <Legend />
+
+                        <Line
+                          type="monotone"
+                          dataKey="forecast"
+                          name="Forecast"
+                          stroke="#2563eb"
+                          dot={false}
+                          strokeWidth={2}
+                        />
+
+                        <Line
+                          type="monotone"
+                          dataKey="actual"
+                          name="Actual"
+                          stroke="#16a34a"
+                          dot={false}
+                          strokeWidth={2}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
               </section>
 
+              {/* Daily MAE Chart */}
               <section className="chart-box">
                 <h2>Daily Mean Absolute Error</h2>
+
                 <p className="page-sub">
                   Lower values indicate more accurate forecasts.
                 </p>
 
-                <div style={{ width: "100%", height: 320 }}>
-                  <ResponsiveContainer>
-                    <BarChart data={dailyMAE}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="date"
-                        tick={{ fontSize: 11 }}
-                        interval="preserveStartEnd"
-                      />
-                      <YAxis
-                        width={60}
-                        tickFormatter={(value) =>
-                          `${(value / 1000).toFixed(1)}k`
-                        }
-                      />
-                      <Tooltip
-                        formatter={(value) => [
-                          `${formatNumber(value)} MW`,
-                          "Daily MAE",
-                        ]}
-                      />
-                      <Bar
-                        dataKey="mae"
-                        name="Daily MAE"
-                        fill="#8b5cf6"
-                        radius={[4, 4, 0, 0]}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
+                <div className="chart-scroll">
+                  <div className="chart-inner daily-chart">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={dailyMAE}>
+                        <CartesianGrid strokeDasharray="3 3" />
+
+                        <XAxis
+                          dataKey="date"
+                          tick={{ fontSize: 11 }}
+                          interval="preserveStartEnd"
+                        />
+
+                        <YAxis
+                          width={60}
+                          tickFormatter={(value) =>
+                            `${(value / 1000).toFixed(1)}k`
+                          }
+                        />
+
+                        <Tooltip
+                          formatter={(value) => [
+                            `${formatNumber(value)} MW`,
+                            "Daily MAE",
+                          ]}
+                        />
+
+                        <Bar
+                          dataKey="mae"
+                          name="Daily MAE"
+                          fill="#8b5cf6"
+                          radius={[4, 4, 0, 0]}
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
               </section>
 
+              {/* Hourly Data Table */}
               <section className="table-box">
                 <h2>Hourly Forecast vs Actual Details</h2>
 
@@ -296,7 +317,8 @@ const Accuracy = () => {
             </>
           )}
         </div>
-        <Footer/>
+
+        <Footer />
       </main>
     </>
   );

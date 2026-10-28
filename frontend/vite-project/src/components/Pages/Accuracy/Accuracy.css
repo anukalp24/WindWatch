@@ -1,4 +1,3 @@
-
 .accuracy-page {
   display: flex;
   flex-direction: column;
@@ -8,14 +7,21 @@
   color: #172033;
   font-family: Arial, sans-serif;
   box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.accuracy-page *,
+.accuracy-page *::before,
+.accuracy-page *::after {
+  box-sizing: border-box;
 }
 
 .accuracy-page .container {
   width: 100%;
   max-width: 1200px;
+  min-width: 0;
   margin: 0 auto;
   flex: 1;
-  box-sizing: border-box;
 }
 
 .accuracy-page .page-title {
@@ -23,6 +29,7 @@
   font-size: clamp(28px, 4vw, 38px);
   font-weight: 700;
   letter-spacing: -0.8px;
+  overflow-wrap: anywhere;
 }
 
 .accuracy-page .page-sub {
@@ -109,7 +116,9 @@
 .accuracy-page .card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 12px;
+  min-width: 0;
   min-height: 130px;
   padding: 24px;
   background: #ffffff;
@@ -120,7 +129,7 @@
 
 .accuracy-page .card-value {
   color: #0f172a;
-  font-size: clamp(28px, 3vw, 36px);
+  font-size: clamp(26px, 3vw, 36px);
   font-weight: 700;
   line-height: 1.2;
   overflow-wrap: anywhere;
@@ -134,9 +143,10 @@
 
 /* Charts */
 .accuracy-page .chart-box {
+  width: 100%;
+  min-width: 0;
   margin-bottom: 24px;
   padding: 24px;
-  min-width: 0;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 14px;
@@ -154,8 +164,32 @@
   margin-bottom: 22px;
 }
 
+/* Make chart content scroll horizontally on small screens.
+   The chart itself retains enough width for readable labels. */
+.accuracy-page .chart-scroll {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
+}
+
+.accuracy-page .chart-inner {
+  width: 100%;
+  min-width: 0;
+  height: 350px;
+}
+
+.accuracy-page .chart-inner.daily-chart {
+  height: 320px;
+}
+
 /* Results table */
 .accuracy-page .table-box {
+  width: 100%;
+  min-width: 0;
   margin-top: 24px;
   padding: 24px;
   background: #ffffff;
@@ -175,12 +209,15 @@
   width: 100%;
   max-height: 480px;
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
 }
 
 .accuracy-page table {
   width: 100%;
+  min-width: 760px;
   border-collapse: collapse;
   white-space: nowrap;
   text-align: left;
@@ -193,6 +230,7 @@
 .accuracy-page th {
   position: sticky;
   top: 0;
+  z-index: 1;
   padding: 15px 18px;
   background: #f8fafc;
   border-bottom: 1px solid #e2e8f0;
@@ -228,20 +266,20 @@
   font-size: 14px;
 }
 
-/* Responsive layout */
+/* Tablet */
 @media (max-width: 768px) {
   .accuracy-page {
     padding: 28px 16px 40px;
   }
 
   .accuracy-page .cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
 
   .accuracy-page .card {
-    min-height: 100px;
-    padding: 20px;
+    min-height: 105px;
+    padding: 18px;
   }
 
   .accuracy-page .controls {
@@ -256,11 +294,10 @@
   }
 
   .accuracy-page .field input {
-    box-sizing: border-box;
     width: 100%;
   }
 
-  .accuracy-page button {
+  .accuracy-page .controls button {
     width: 100%;
   }
 
@@ -269,8 +306,87 @@
     padding: 16px;
   }
 
+  .accuracy-page .chart-inner {
+    min-width: 680px;
+  }
+
+  .accuracy-page .chart-inner.daily-chart {
+    min-width: 680px;
+  }
+
+  .accuracy-page .table-scroll {
+    max-height: 420px;
+  }
+
   .accuracy-page th,
   .accuracy-page td {
     padding: 12px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .accuracy-page {
+    padding: 22px 12px 32px;
+  }
+
+  .accuracy-page .page-title {
+    font-size: 27px;
+    letter-spacing: -0.5px;
+  }
+
+  .accuracy-page .page-sub {
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+
+  .accuracy-page .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .accuracy-page .card {
+    min-height: 90px;
+    padding: 18px;
+    gap: 8px;
+  }
+
+  .accuracy-page .card-value {
+    font-size: 28px;
+  }
+
+  .accuracy-page .controls {
+    gap: 14px;
+    padding: 15px;
+  }
+
+  .accuracy-page .chart-box,
+  .accuracy-page .table-box {
+    padding: 12px;
+    border-radius: 11px;
+  }
+
+  .accuracy-page .chart-box h2,
+  .accuracy-page .table-box h2 {
+    font-size: 17px;
+  }
+
+  .accuracy-page .chart-inner,
+  .accuracy-page .chart-inner.daily-chart {
+    min-width: 620px;
+  }
+
+  .accuracy-page .chart-scroll {
+    margin-bottom: 4px;
+  }
+
+  .accuracy-page .table-scroll {
+    max-height: 380px;
+  }
+
+  .accuracy-page th,
+  .accuracy-page td {
+    padding: 10px;
+    font-size: 12px;
   }
 }
