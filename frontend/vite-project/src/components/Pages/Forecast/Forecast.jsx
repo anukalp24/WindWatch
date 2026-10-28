@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../Navbar";
 import "./Forecast.css";
 
-const API_URL = "http://127.0.0.1:8000/forecast";
+const API_URL = "https://windwatch.onrender.com/forecast";
 
 const Forecast = () => {
   const [forecasts, setForecasts] = useState([]);

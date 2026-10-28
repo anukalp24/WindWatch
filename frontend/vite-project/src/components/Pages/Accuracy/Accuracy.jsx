@@ -15,7 +15,7 @@ import {
 import Navbar from "../../Navbar";
 import "./Accuracy.css";
 
-const API_URL = "http://127.0.0.1:8000/accuracy";
+const API_URL = "https://windwatch.onrender.com/accuracy";
 
 const formatNumber = (value) =>
   Number(value).toLocaleString("en-GB", {
