@@ -16,10 +16,6 @@ const Navbar = () => {
           <NavLink to="/forecast">Forecast</NavLink>
           <NavLink to="/accuracy">Accuracy</NavLink>
         </nav>
-
-        <Link to="/forecast" className="nav-cta">
-          Open Dashboard
-        </Link>
       </div>
     </header>
   );
