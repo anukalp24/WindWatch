@@ -13,7 +13,7 @@ app = FastAPI(title="Wind Forecast API")
 # React (localhost:5173) ko backend call karne dene ke liye
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://wind-watch.vercel.app" , "http://localhost:5173" ],
     allow_methods=["*"],
     allow_headers=["*"],
 )
