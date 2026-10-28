@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import Footer from "../Footer/Footer";
 import {
   ResponsiveContainer,
   LineChart,
@@ -295,6 +296,7 @@ const Accuracy = () => {
             </>
           )}
         </div>
+        <Footer/>
       </main>
     </>
   );
